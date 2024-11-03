@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card"
 
 export default function ContactsPage() {
   return (
-    <div className="container py-8">
+    <>
       <h1 className="text-3xl font-bold mb-8">Контакты</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -59,6 +59,6 @@ export default function ContactsPage() {
           </div>
         </Card>
       </div>
-    </div>
+    </>
   )
 }

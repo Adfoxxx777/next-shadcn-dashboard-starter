@@ -1,41 +1,30 @@
-import { auth } from '@/auth';
-import Providers from '@/components/layout/providers';
-import { Toaster } from '@/components/ui/sonner';
-import type { Metadata } from 'next';
-import { Lato } from 'next/font/google';
-import NextTopLoader from 'nextjs-toploader';
-import './globals.css';
+import type { Metadata } from "next"
+import { Inter } from "next/font/google"
+import "./globals.css"
+import { MainHeader } from "@/components/layout/main-header"
+
+const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: 'Next Shadcn',
-  description: 'Basic dashboard with Next.js and Shadcn'
-};
+  title: "PrintStand",
+  description: "Мобильные стенды и широкоформатная печать",
+}
 
-const lato = Lato({
-  subsets: ['latin'],
-  weight: ['400', '700', '900'],
-  display: 'swap'
-});
-
-export default async function RootLayout({
-  children
+export default function RootLayout({
+  children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
-  const session = await auth();
   return (
-    <html
-      lang="en"
-      className={`${lato.className}`}
-      suppressHydrationWarning={true}
-    >
-      <body className={'overflow-hidden'}>
-        <NextTopLoader showSpinner={false} />
-        <Providers session={session}>
-          <Toaster />
-          {children}
-        </Providers>
+    <html lang="ru">
+      <body className={inter.className}>
+        <div className="min-h-screen bg-background">
+          <MainHeader />
+          <main className="container mx-auto px-4 py-8">
+            {children}
+          </main>
+        </div>
       </body>
     </html>
-  );
+  )
 }
