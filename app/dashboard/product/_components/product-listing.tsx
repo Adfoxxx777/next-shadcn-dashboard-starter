@@ -1,3 +1,5 @@
+'use server'
+
 import { Product } from '@/constants/data';
 import { fakeProducts } from '@/constants/mock-api';
 import { searchParamsCache } from '@/lib/searchparams';
@@ -5,20 +7,19 @@ import { DataTable as ProductTable } from '@/components/ui/table/data-table';
 import { columns } from './product-tables/columns';
 
 type ProductListingProps = {
-  _searchParams: Record<string, string | string[] | undefined>
+  searchParams: Record<string, string | string[] | undefined>
 }
 
-export default function ProductListing({ _searchParams }: ProductListingProps) {
-  // Showcasing the use of search params cache in nested RSCs
-  const page = searchParamsCache.get('page');
-  const search = searchParamsCache.get('q');
-  const pageLimit = searchParamsCache.get('limit');
-  const categories = searchParamsCache.get('categories');
+export default async function ProductListing({ searchParams }: ProductListingProps) {
+  const currentPage = Number(searchParams?.page) || 1;
+  const pageSize = Number(searchParams?.pageSize) || 10;
+  const sort = (searchParams?.sort as string) || "desc";
+  const categories = searchParams?.categories || "";
 
   const filters = {
-    page,
-    limit: pageLimit,
-    ...(search && { search }),
+    page: currentPage,
+    pageSize: pageSize,
+    sort: sort,
     ...(categories && { categories: categories })
   };
 
