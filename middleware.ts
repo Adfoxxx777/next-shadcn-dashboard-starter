@@ -9,7 +9,8 @@ if (!process.env.NEXTAUTH_SECRET) {
 export async function middleware(request: NextRequest) {
   const token = await getToken({ 
     req: request, 
-    secret: process.env.NEXTAUTH_SECRET as string
+    secret: process.env.NEXTAUTH_SECRET as string,
+    salt: process.env.NEXTAUTH_SECRET
   })
   
   const isDashboardRoute = request.nextUrl.pathname.startsWith('/dashboard')
