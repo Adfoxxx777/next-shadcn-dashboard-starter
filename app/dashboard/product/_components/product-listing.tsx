@@ -1,25 +1,22 @@
-'use server'
-
 import { Product } from '@/constants/data';
 import { fakeProducts } from '@/constants/mock-api';
 import { searchParamsCache } from '@/lib/searchparams';
 import { DataTable as ProductTable } from '@/components/ui/table/data-table';
 import { columns } from './product-tables/columns';
 
-type ProductListingProps = {
-  searchParams: Record<string, string | string[] | undefined>
-}
+type ProductListingPage = {};
 
-export default async function ProductListing({ searchParams }: ProductListingProps) {
-  const currentPage = Number(searchParams?.page) || 1;
-  const pageSize = Number(searchParams?.pageSize) || 10;
-  const sort = (searchParams?.sort as string) || "desc";
-  const categories = searchParams?.categories || "";
+export default async function ProductListingPage({}: ProductListingPage) {
+  // Showcasing the use of search params cache in nested RSCs
+  const page = searchParamsCache.get('page');
+  const search = searchParamsCache.get('q');
+  const pageLimit = searchParamsCache.get('limit');
+  const categories = searchParamsCache.get('categories');
 
   const filters = {
-    page: currentPage,
-    pageSize: pageSize,
-    sort: sort,
+    page,
+    limit: pageLimit,
+    ...(search && { search }),
     ...(categories && { categories: categories })
   };
 

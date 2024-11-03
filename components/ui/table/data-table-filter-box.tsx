@@ -23,24 +23,30 @@ import { CheckIcon } from 'lucide-react';
 import { Options } from 'nuqs';
 import React from 'react';
 
-type FilterValue = string | number | boolean;
-
-interface DataTableFilterBoxProps<TData> {
-  _column: Column<TData>;
-  title: string;
-  options: {
-    label: string;
-    value: FilterValue;
-  }[];
+interface FilterOption {
+  value: string;
+  label: string;
+  icon?: React.ComponentType<{ className?: string }>;
 }
 
-export function DataTableFilterBox<TData>({
-  _column,
+interface FilterBoxProps {
+  filterKey: string;
+  title: string;
+  options: FilterOption[];
+  setFilterValue: (
+    value: string | ((old: string) => string | null) | null,
+    options?: Options<any> | undefined
+  ) => Promise<URLSearchParams>;
+  filterValue: string;
+}
+
+export function DataTableFilterBox({
+  filterKey,
   title,
   options,
   setFilterValue,
   filterValue
-}: DataTableFilterBoxProps<TData>) {
+}: FilterBoxProps) {
   const selectedValuesSet = React.useMemo(() => {
     if (!filterValue) return new Set<string>();
     const values = filterValue.split('.');
@@ -120,6 +126,12 @@ export function DataTableFilterBox<TData>({
                   >
                     <CheckIcon className="h-4 w-4" aria-hidden="true" />
                   </div>
+                  {option.icon && (
+                    <option.icon
+                      className="mr-2 h-4 w-4 text-muted-foreground"
+                      aria-hidden="true"
+                    />
+                  )}
                   <span>{option.label}</span>
                 </CommandItem>
               ))}

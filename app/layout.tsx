@@ -1,33 +1,18 @@
-import type { Metadata } from "next"
-import { Inter } from "next/font/google"
-import "./globals.css"
-import { MainHeader } from "@/components/layout/main-header"
-import { Providers } from "./providers"
-
-const inter = Inter({ subsets: ["latin"] })
-
-export const metadata: Metadata = {
-  title: "PrintStand",
-  description: "Мобильные стенды и широкоформатная печать",
-}
+import '@/app/globals.css';
+import { Providers } from '@/components/layout/providers';
 
 export default function RootLayout({
-  children,
+  children
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
-    <html lang="ru">
-      <body className={inter.className}>
+    <html lang="en" suppressHydrationWarning>
+      <body>
         <Providers>
-          <div className="min-h-screen bg-background">
-            <MainHeader />
-            <main className="container mx-auto px-4 py-8">
-              {children}
-            </main>
-          </div>
+          <main>{children}</main>
         </Providers>
       </body>
     </html>
-  )
+  );
 }

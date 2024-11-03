@@ -9,8 +9,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
-
-export function ThemeToggle(_props: Record<string, never>) {
+type CompProps = {};
+export default function ThemeToggle({}: CompProps) {
   const { setTheme } = useTheme();
   return (
     <DropdownMenu>

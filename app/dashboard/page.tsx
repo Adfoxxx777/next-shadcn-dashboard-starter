@@ -1,20 +1,12 @@
-'use client'
+import { auth } from '@/auth';
+import { redirect } from 'next/navigation';
 
-import { useSession } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
+export default async function Dashboard() {
+  const session = await auth();
 
-export default function Dashboard() {
-  const { status } = useSession()
-  const router = useRouter()
+  if (!session?.user) {
+    return redirect('/auth/signin');
+  }
 
-  useEffect(() => {
-    if (status === 'unauthenticated') {
-      router.push('/')
-    } else if (status === 'authenticated') {
-      router.push('/dashboard/overview')
-    }
-  }, [status, router])
-
-  return null
+  return redirect('/dashboard/overview');
 }

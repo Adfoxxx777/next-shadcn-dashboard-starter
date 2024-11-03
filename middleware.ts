@@ -1,36 +1,20 @@
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
-import { getToken } from 'next-auth/jwt'
+// Protecting routes with next-auth
+// https://next-auth.js.org/configuration/nextjs#middleware
+// https://nextjs.org/docs/app/building-your-application/routing/middleware
 
-// Проверяем наличие секретного ключа
-if (!process.env.NEXTAUTH_SECRET) {
-  throw new Error('NEXTAUTH_SECRET не установлен')
-}
+import NextAuth from 'next-auth';
+import authConfig from './auth.config';
 
-// Сохраняем секретный ключ в константу
-const secret = process.env.NEXTAUTH_SECRET as string
+const { auth } = NextAuth(authConfig);
 
-export async function middleware(request: NextRequest) {
-  const token = await getToken({ 
-    req: request, 
-    secret: secret,
-    salt: secret // Теперь TypeScript знает, что это точно string
-  })
-  
-  const isDashboardRoute = request.nextUrl.pathname.startsWith('/dashboard')
-  const isPublicRoute = ['/', '/contact'].includes(request.nextUrl.pathname)
+export default auth((req) => {
+  const isLoggedIn = !!req.auth;
+  const isAccessingProtectedRoute =
+    req.nextUrl.pathname.startsWith('/dashboard');
 
-  if (isDashboardRoute && !token) {
-    return NextResponse.redirect(new URL('/', request.url))
+  if (isAccessingProtectedRoute && !isLoggedIn) {
+    return Response.redirect(new URL('/auth/signin', req.url));
   }
+});
 
-  if (isPublicRoute && token) {
-    return NextResponse.redirect(new URL('/dashboard/overview', request.url))
-  }
-
-  return NextResponse.next()
-}
-
-export const config = {
-  matcher: ['/', '/contact', '/dashboard/:path*']
-}
+export const config = { matcher: ['/dashboard/:path*'] };

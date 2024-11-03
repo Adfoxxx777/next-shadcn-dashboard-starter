@@ -1,19 +1,16 @@
 'use client';
-import React from 'react';
-import ThemeProvider from './ThemeToggle/theme-provider';
-import { SessionProvider, SessionProviderProps } from 'next-auth/react';
-export default function Providers({
-  session,
-  children
-}: {
-  session: SessionProviderProps['session'];
-  children: React.ReactNode;
-}) {
+
+import { ThemeProvider } from '@/components/providers/theme-provider';
+import { SessionProvider } from 'next-auth/react';
+import { Toaster } from 'sonner';
+
+export function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <>
+    <SessionProvider>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-        <SessionProvider session={session}>{children}</SessionProvider>
+        <Toaster />
+        {children}
       </ThemeProvider>
-    </>
+    </SessionProvider>
   );
 }

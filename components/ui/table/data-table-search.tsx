@@ -5,29 +5,38 @@ import { cn } from '@/lib/utils';
 import { Options } from 'nuqs';
 import { useTransition } from 'react';
 
-type SearchProps<TData> = {
-  column: Column<TData>;
-  searchValue: string;
-  setSearchValue: (value: string) => void;
+interface DataTableSearchProps {
+  searchKey: string;
+  searchQuery: string;
+  setSearchQuery: (
+    value: string | ((old: string) => string | null) | null,
+    options?: Options<any> | undefined
+  ) => Promise<URLSearchParams>;
+  setPage: <Shallow>(
+    value: number | ((old: number) => number | null) | null,
+    options?: Options<Shallow> | undefined
+  ) => Promise<URLSearchParams>;
 }
 
-export function DataTableSearch<TData>({
-  column,
-  searchValue,
-  setSearchValue
-}: SearchProps<TData>) {
-  const [_startTransition] = useTransition();
+export function DataTableSearch({
+  searchKey,
+  searchQuery,
+  setSearchQuery,
+  setPage
+}: DataTableSearchProps) {
+  const [isLoading, startTransition] = useTransition();
 
   const handleSearch = (value: string) => {
-    setSearchValue(value);
+    setSearchQuery(value, { startTransition });
+    setPage(1); // Reset page to 1 when search changes
   };
 
   return (
     <Input
-      placeholder={`Search ${column.accessorKey}...`}
-      value={searchValue}
+      placeholder={`Search ${searchKey}...`}
+      value={searchQuery ?? ''}
       onChange={(e) => handleSearch(e.target.value)}
-      className={cn('w-full md:max-w-sm', _startTransition && 'animate-pulse')}
+      className={cn('w-full md:max-w-sm', isLoading && 'animate-pulse')}
     />
   );
 }

@@ -1,21 +1,28 @@
-export default function Home() {
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+
+export default function HomePage() {
   return (
-    <>
-      <h1 className="text-4xl font-bold mb-8">Мобильные стенды и широкоформатная печать</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div className="bg-card rounded-lg p-6 shadow-lg">
-          <h2 className="text-2xl font-semibold mb-4">Roll Up стенды</h2>
-          <p className="text-muted-foreground">Мобильные стенды для презентаций и выставок</p>
-        </div>
-        <div className="bg-card rounded-lg p-6 shadow-lg">
-          <h2 className="text-2xl font-semibold mb-4">X-Banner стенды</h2>
-          <p className="text-muted-foreground">Легкие и компактные рекламные конструкции</p>
-        </div>
-        <div className="bg-card rounded-lg p-6 shadow-lg">
-          <h2 className="text-2xl font-semibold mb-4">Широкоформатная печать</h2>
-          <p className="text-muted-foreground">Печать баннеров, плакатов и других материалов</p>
+    <div className="flex min-h-screen flex-col items-center justify-center p-4">
+      <div className="mx-auto w-full max-w-7xl">
+        <div className="flex flex-col items-center space-y-8 text-center">
+          <h1 className="text-4xl font-bold tracking-tighter sm:text-6xl">
+            Добро пожаловать в нашу платформу
+          </h1>
+          <p className="max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
+            Управляйте вашим бизнесом эффективно с помощью нашей современной
+            админ-панели
+          </p>
+          <div className="flex flex-col gap-4 sm:flex-row">
+            <Button asChild>
+              <Link href="/dashboard">Войти в панель управления</Link>
+            </Button>
+            <Button variant="outline" asChild>
+              <Link href="/auth/signin">Войти в аккаунт</Link>
+            </Button>
+          </div>
         </div>
       </div>
-    </>
-  )
+    </div>
+  );
 }
