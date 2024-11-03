@@ -2,8 +2,14 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { getToken } from 'next-auth/jwt'
 
+const secret = process.env.NEXTAUTH_SECRET
+
 export async function middleware(request: NextRequest) {
-  const token = await getToken({ req: request })
+  const token = await getToken({ 
+    req: request, 
+    secret: secret 
+  })
+  
   const isDashboardRoute = request.nextUrl.pathname.startsWith('/dashboard')
   const isPublicRoute = ['/', '/contact'].includes(request.nextUrl.pathname)
 
