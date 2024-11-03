@@ -2,15 +2,19 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { getToken } from 'next-auth/jwt'
 
+// Проверяем наличие секретного ключа
 if (!process.env.NEXTAUTH_SECRET) {
   throw new Error('NEXTAUTH_SECRET не установлен')
 }
 
+// Сохраняем секретный ключ в константу
+const secret = process.env.NEXTAUTH_SECRET as string
+
 export async function middleware(request: NextRequest) {
   const token = await getToken({ 
     req: request, 
-    secret: process.env.NEXTAUTH_SECRET as string,
-    salt: process.env.NEXTAUTH_SECRET
+    secret: secret,
+    salt: secret // Теперь TypeScript знает, что это точно string
   })
   
   const isDashboardRoute = request.nextUrl.pathname.startsWith('/dashboard')
