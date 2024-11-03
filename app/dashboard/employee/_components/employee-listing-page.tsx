@@ -10,9 +10,11 @@ import { Plus } from 'lucide-react';
 import Link from 'next/link';
 import EmployeeTable from './employee-tables';
 
-type TEmployeeListingPage = {};
+type TEmployeeListingPage = {
+  _searchParams: Record<string, string | string[] | undefined>
+};
 
-export default async function EmployeeListingPage({}: TEmployeeListingPage) {
+export default async function EmployeeListingPage({ _searchParams }: TEmployeeListingPage) {
   // Showcasing the use of search params cache in nested RSCs
   const page = searchParamsCache.get('page');
   const search = searchParamsCache.get('q');

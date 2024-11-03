@@ -42,9 +42,9 @@ const ProfileCreateForm: React.FC<ProfileFormType> = ({
 }) => {
   const params = useParams();
   const router = useRouter();
-  const [open, setOpen] = useState(false);
+  const [_open, _setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [imgLoading, setImgLoading] = useState(false);
+  const [_imgLoading, _setImgLoading] = useState(false);
   const title = initialData ? 'Edit product' : 'Create Your Profile';
   const description = initialData
     ? 'Edit a product.'
@@ -111,7 +111,7 @@ const ProfileCreateForm: React.FC<ProfileFormType> = ({
     } catch (error: any) {
     } finally {
       setLoading(false);
-      setOpen(false);
+      _setOpen(false);
     }
   };
 
@@ -186,7 +186,7 @@ const ProfileCreateForm: React.FC<ProfileFormType> = ({
             disabled={loading}
             variant="destructive"
             size="sm"
-            onClick={() => setOpen(true)}
+            onClick={() => _setOpen(true)}
           >
             <Trash className="h-4 w-4" />
           </Button>
