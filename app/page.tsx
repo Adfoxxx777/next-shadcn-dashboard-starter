@@ -1,28 +1,39 @@
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
+import Image from "next/image";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
-export default function HomePage() {
+export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center p-4">
-      <div className="mx-auto w-full max-w-7xl">
-        <div className="flex flex-col items-center space-y-8 text-center">
-          <h1 className="text-4xl font-bold tracking-tighter sm:text-6xl">
-            Добро пожаловать в нашу платформу
-          </h1>
-          <p className="max-w-[600px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
-            Управляйте вашим бизнесом эффективно с помощью нашей современной
-            админ-панели
-          </p>
-          <div className="flex flex-col gap-4 sm:flex-row">
-            <Button asChild>
-              <Link href="/dashboard">Войти в панель управления</Link>
-            </Button>
-            <Button variant="outline" asChild>
-              <Link href="/auth/signin">Войти в аккаунт</Link>
-            </Button>
+    <div className="container mx-auto px-4 py-8">
+      {/* Hero секция */}
+      <section className="mb-12">
+        <div className="relative h-[500px] rounded-lg overflow-hidden">
+          <img 
+            src="/hero-image.jpg" 
+            alt="Коллекция нижнего белья" 
+            className="object-cover w-full h-full"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent flex items-center">
+            <div className="text-white p-12">
+              <h1 className="text-5xl font-bold mb-4">Идеальное белье для каждой</h1>
+              <p className="text-xl mb-6">Подберите свой размер с нашим удобным калькулятором</p>
+              <Button size="lg" className="bg-white text-black hover:bg-white/90">
+                Подобрать размер
+              </Button>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* Категории */}
+      <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <Card className="p-6">
+          <h2 className="text-xl font-semibold mb-2">Бюстгальтеры</h2>
+          <p className="text-gray-600 mb-4">Широкий выбор моделей для любого случая</p>
+          <Button variant="outline">Смотреть все</Button>
+        </Card>
+        {/* Добавьте аналогичные карточки для других категорий */}
+      </section>
     </div>
   );
 }
