@@ -1,14 +1,12 @@
-'use client'
+'use client';
 
-import { signIn } from 'next-auth/react'
-import { Button } from '@/components/ui/button'
+import { Suspense } from 'react';
+import SignInView from '../_components/sigin-view';
 
-export default function SignIn() {
+export default function SignInPage() {
   return (
-    <div className="flex min-h-screen items-center justify-center">
-      <Button onClick={() => signIn('github', { callbackUrl: '/dashboard' })}>
-        Войти через GitHub
-      </Button>
-    </div>
-  )
-} 
+    <Suspense fallback={<div>Loading...</div>}>
+      <SignInView />
+    </Suspense>
+  );
+}
