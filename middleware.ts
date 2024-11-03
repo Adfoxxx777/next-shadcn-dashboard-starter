@@ -2,12 +2,14 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { getToken } from 'next-auth/jwt'
 
-const secret = process.env.NEXTAUTH_SECRET
+if (!process.env.NEXTAUTH_SECRET) {
+  throw new Error('NEXTAUTH_SECRET не установлен')
+}
 
 export async function middleware(request: NextRequest) {
   const token = await getToken({ 
     req: request, 
-    secret: secret 
+    secret: process.env.NEXTAUTH_SECRET as string
   })
   
   const isDashboardRoute = request.nextUrl.pathname.startsWith('/dashboard')
