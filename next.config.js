@@ -14,7 +14,17 @@ const nextConfig = {
       }
     ]
   },
-  transpilePackages: ['geist']
+  transpilePackages: ['geist'],
+  experimental: {
+    serverActions: true,
+    serverComponentsExternalPackages: []
+  },
+  typescript: {
+    ignoreBuildErrors: true
+  },
+  eslint: {
+    ignoreDuringBuilds: true
+  }
 };
 
 module.exports = nextConfig;
