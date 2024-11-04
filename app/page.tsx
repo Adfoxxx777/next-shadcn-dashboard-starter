@@ -1,43 +1,73 @@
-import { Button } from "@/components/ui/button"
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import Link from 'next/link';
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <main className="min-h-screen bg-background">
+    <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-r from-purple-700 to-blue-700 text-white">
-        <div className="container mx-auto text-center px-4">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            Широкоформатная печать и мобильные стенды
+      <section className="bg-gradient-to-b from-primary/20 to-background px-4 py-20 text-center md:px-6">
+        <div className="mx-auto max-w-5xl space-y-6">
+          <h1 className="text-4xl font-bold md:text-6xl">
+            Инновационные решения для вашего бизнеса
           </h1>
-          <p className="text-xl mb-8">
-            Качественная печать любых форматов для вашего бизнеса
+          <p className="mx-auto max-w-3xl text-xl text-muted-foreground">
+            Мы помогаем компаниям расти и развиваться, предоставляя передовые
+            технологические решения
           </p>
-          <Button size="lg" className="bg-white text-black hover:bg-gray-100">
-            Заказать печать
-          </Button>
-        </div>
-      </section>
-
-      {/* Services */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-8 text-center">Наши услуги</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="p-6 border rounded-lg shadow-sm hover:shadow-md transition-shadow">
-              <h3 className="text-xl font-bold mb-4">Широкоформатная печать</h3>
-              <p className="text-gray-600">Баннеры, плакаты, постеры любых размеров с высоким качеством печати</p>
-            </div>
-            <div className="p-6 border rounded-lg shadow-sm hover:shadow-md transition-shadow">
-              <h3 className="text-xl font-bold mb-4">Мобильные стенды</h3>
-              <p className="text-gray-600">Roll-Up, X-баннеры и другие мобильные конструкции для выставок и презентаций</p>
-            </div>
-            <div className="p-6 border rounded-lg shadow-sm hover:shadow-md transition-shadow">
-              <h3 className="text-xl font-bold mb-4">Интерьерная печать</h3>
-              <p className="text-gray-600">Высококачественная печать для оформления интерьеров и создания рекламных материалов</p>
-            </div>
+          <div className="flex justify-center gap-4">
+            <Link href="/dashboard">
+              <Button size="lg">Начать работу</Button>
+            </Link>
+            <Button variant="outline" size="lg">
+              Узнать больше
+            </Button>
           </div>
         </div>
       </section>
-    </main>
-  )
+
+      {/* Features Section */}
+      <section className="px-4 py-20 md:px-6">
+        <div className="mx-auto max-w-6xl">
+          <h2 className="mb-12 text-center text-3xl font-bold">
+            Наши преимущества
+          </h2>
+          <div className="grid gap-6 md:grid-cols-3">
+            <Card className="p-6">
+              <h3 className="mb-3 text-xl font-semibold">Инновации</h3>
+              <p className="text-muted-foreground">
+                Используем передовые технологии и современные подходы в
+                разработке
+              </p>
+            </Card>
+            <Card className="p-6">
+              <h3 className="mb-3 text-xl font-semibold">Надежность</h3>
+              <p className="text-muted-foreground">
+                Гарантируем стабильную работу и безопасность ваших данных
+              </p>
+            </Card>
+            <Card className="p-6">
+              <h3 className="mb-3 text-xl font-semibold">Поддержка</h3>
+              <p className="text-muted-foreground">
+                Предоставляем круглосуточную техническую поддержку
+              </p>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section className="bg-muted/50 px-4 py-20 md:px-6">
+        <div className="mx-auto max-w-5xl text-center">
+          <h2 className="mb-6 text-3xl font-bold">Свяжитесь с нами</h2>
+          <p className="mb-8 text-xl text-muted-foreground">
+            Готовы обсудить ваш проект? Мы всегда на связи
+          </p>
+          <Button size="lg" variant="default">
+            Связаться
+          </Button>
+        </div>
+      </section>
+    </div>
+  );
 }
